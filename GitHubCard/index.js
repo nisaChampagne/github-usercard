@@ -26,6 +26,7 @@
 
 const followersArray = [
   "MarquesJ8023",
+  "nisaChampagne",
   "justsml",
   "bigknell",
   "Luis1D",
