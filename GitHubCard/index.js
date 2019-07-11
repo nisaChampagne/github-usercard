@@ -25,13 +25,16 @@
 */
 
 const followersArray = [
-  "tetondan",
-  "dustinmyers",
+  "MarquesJ8023",
   "justsml",
-  "luishrd",
-  "bigknell"
+  "bigknell",
+  "Luis1D",
+  "adkhiker",
+  "dorabelme",
+  "pdadlani",
+  "brudnak"
 ];
-
+///// followers Array to make this work
 followersArray.forEach(follower => {
   axios
     .get(`https://api.github.com/users/${follower}`)
@@ -122,9 +125,9 @@ function createCards(userObject) {
   name.textContent = userObject.name;
   location.textContent = `Location: ${userObject.location}`
   profileLink.textContent = userObject.html_url;
-  profile.textContent = `Profile: `;
-  followers.textContent = userObject.followers;
-  following.textContent = userObject.following;
+  profile.textContent = `Profile: ${profileLink} `;
+  followers.textContent = `Followers: ${userObject.followers}`;
+  following.textContent = `Following: ${userObject.following}`;
   bio.textContent = `Bio: ${userObject.bio}`
 
   return card;
