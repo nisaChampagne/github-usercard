@@ -100,6 +100,7 @@ function createCards(userObject) {
   const followers = document.createElement("p");
   const following = document.createElement("p");
   const bio = document.createElement("p");
+  const expandButton = document.createElement('button')
 
   ////appendChild
   card.appendChild(imgs);
@@ -112,6 +113,7 @@ function createCards(userObject) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
+  cardInfo.appendChild(expandButton);
 
   //set styles
   card.classList.add("card");
@@ -120,6 +122,12 @@ function createCards(userObject) {
   name.classList.add("name");
   userName.classList.add("username");
   profileLink.href = userObject.html_url;
+  expandButton.classList.add("expandButton", 'hide-btn')
+  expandButton.classList.toggle("hide-btn");
+    if(card.classList.length > 1)
+    expandButton.innerHTML= 'collapse';
+    else expandButton.innerHTML = 'expand';
+    
 
   ///set content
   userName.textContent = userObject.login;
@@ -130,6 +138,12 @@ function createCards(userObject) {
   followers.textContent = `Followers: ${userObject.followers}`;
   following.textContent = `Following: ${userObject.following}`;
   bio.textContent = `Bio: ${userObject.bio}`
+  expandButton.textContent = 'expand';
+  
+  ////event listener
+  expandButton.addEventListener('click', () =>{
+    console.log('clicked me yay!')
+  })
 
   return card;
 }
