@@ -210,9 +210,7 @@ button.expandButton {
   border: 1px solid aqua;
   background-color: white;
   border-radius: 5px;
-    .toggle-on{
-      display:none;
-    }
+  cursor: pointer;
 }
 
 .card-open{

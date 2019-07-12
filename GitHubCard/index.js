@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [
+const followersArray = [////followers in an array including myself
   "MarquesJ8023",
   "nisaChampagne",
   "justsml",
@@ -36,13 +36,12 @@ const followersArray = [
   "brudnak"
 ];
 ///// followers Array to make this work
-followersArray.forEach(follower => {
+followersArray.forEach(follower => {//// take array and place for each follower
   axios
-    .get(`https://api.github.com/users/${follower}`)
-    .then(response => {
-      console.log(response.data);
-
-      cardContainer.appendChild(createCards(response.data));
+    .get(`https://api.github.com/users/${follower}`)///gets the indiviudal github apis for follower
+    .then(response => {////for success
+      console.log(response.data);///, response will show in console along with info below
+      cardContainer.appendChild(createCards(response.data));///// container will bring createCard function into family with its lovely data
     })
 });
 
@@ -69,14 +68,14 @@ followersArray.forEach(follower => {
 
 */
 
-const cardContainer = document.querySelector(".cards");
+const cardContainer = document.querySelector(".cards");///// holds my cards
 
-const promise = axios.get("https://api.github.com/users/nisaChampagne");
+const promise = axios.get("https://api.github.com/users/nisaChampagne");/// where to get api info
 
-promise
-  .then(response => {
-    console.log("Hai", response.data);
-    let cards = document.querySelectorAll(".cards");
+promise////true and false location 
+  .then(response => {/////success
+    console.log("Hai", response.data);  ///hai will show if successful
+    let cards = document.querySelectorAll(".cards");/// made new
     let card = createCards(response.data);
     console.log(card);
     cards.appendChild(card);
@@ -101,19 +100,21 @@ function createCards(userObject) {
   const following = document.createElement("p");
   const bio = document.createElement("p");
   const expandButton = document.createElement('button')
+  // const chart = document.createElement('img')
 
   ////appendChild
-  card.appendChild(imgs);
-  card.appendChild(cardInfo);
-  cardInfo.appendChild(name);
-  cardInfo.appendChild(userName);
-  cardInfo.appendChild(profile);
-  profile.appendChild(profileLink);
-  cardInfo.appendChild(location);
-  cardInfo.appendChild(followers);
-  cardInfo.appendChild(following);
-  cardInfo.appendChild(bio);
-  cardInfo.appendChild(expandButton);
+  card.appendChild(imgs);////appends imgs after card
+  card.appendChild(cardInfo);/// appends cardInfo after card
+  cardInfo.append(name, userName, profile, location, followers, following, bio, expandButton);
+  // cardInfo.appendChild(userName);
+  // cardInfo.appendChild(profile);
+  // profile.appendChild(profileLink);
+  // cardInfo.appendChild(location);
+  // cardInfo.appendChild(followers);
+  // cardInfo.appendChild(following);
+  // cardInfo.appendChild(bio);
+  // // cardInfo.appendChild(chart)
+  // cardInfo.appendChild(expandButton);
 
   //set styles
   card.classList.add("card");
@@ -130,8 +131,8 @@ function createCards(userObject) {
     
 
   ///set content
-  userName.textContent = userObject.login;
-  name.textContent = userObject.name;
+  userName.textContent = `${userObject.login}`;
+  name.textContent = `${userObject.name}`;
   location.textContent = `Location: ${userObject.location}`
   profileLink.textContent = userObject.html_url;
   profile.textContent = `Profile: ${profileLink} `;
