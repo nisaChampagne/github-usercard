@@ -35,10 +35,12 @@ const followersArray = [////followers in an array including myself
   "pdadlani",
   "brudnak"
 ];
+
+////MADE OBJECTS FOR MY FOLLOWERSARRAY
 ///// followers Array to make this work
 followersArray.forEach(follower => {//// take array and place for each follower
   axios
-    .get(`https://api.github.com/users/${follower}`)///gets the indiviudal github apis for follower
+    .get(`https://api.github.com/users/${follower}`)///gets the indiviudal github apis for ${follower}
     .then(response => {////for success
       console.log(response.data);///, response will show in console along with info below
       cardContainer.appendChild(createCards(response.data));///// container will bring createCard function into family with its lovely data
@@ -68,26 +70,28 @@ followersArray.forEach(follower => {//// take array and place for each follower
 
 */
 
-const cardContainer = document.querySelector(".cards");///// holds my cards
+const cardContainer = document.querySelector(".cards");///// holds my createCards(userObject) function up above in followersArray
 
 const promise = axios.get("https://api.github.com/users/nisaChampagne");/// where to get api info
 
 promise////true and false location 
   .then(response => {/////success
     console.log("Hai", response.data);  ///hai will show if successful
-    let cards = document.querySelectorAll(".cards");/// made new
-    let card = createCards(response.data);
-    console.log(card);
-    cards.appendChild(card);
+    let cards = document.querySelectorAll(".cards");/// made new cards container to later append card to
+    let card = createCards(response.data);////allowing card to be our created dom components to live
+    cards.appendChild(card);/// appends card(where DOM components live) to cards(container) within the promise
   })
 
   .catch(error => {
-    console.log("API no guud", error);
+    console.log("API no guud", error);////failure; errors out of something isnt correct.
   });
 
 ////function
-function createCards(userObject) {
+function createCards(userObject) {//// our function to create, append, set, and have event listener for btn
+
+
   ///create elements
+  const cards = document.createElement('div')
   const card = document.createElement("div");
   const imgs = document.createElement("img");
   const cardInfo = document.createElement("div");
@@ -102,36 +106,34 @@ function createCards(userObject) {
   const expandButton = document.createElement('button')
   // const chart = document.createElement('img')
 
+
+
   ////appendChild
+  cards.appendChild(card);////appends card to cards, maybe redundant but extr
   card.appendChild(imgs);////appends imgs after card
   card.appendChild(cardInfo);/// appends cardInfo after card
-  cardInfo.append(name, userName, profile, location, followers, following, bio, expandButton);
-  // cardInfo.appendChild(userName);
-  // cardInfo.appendChild(profile);
-  // profile.appendChild(profileLink);
-  // cardInfo.appendChild(location);
-  // cardInfo.appendChild(followers);
-  // cardInfo.appendChild(following);
-  // cardInfo.appendChild(bio);
-  // // cardInfo.appendChild(chart)
-  // cardInfo.appendChild(expandButton);
+  cardInfo.append(name, userName, profile, location, followers, following, bio, expandButton);///appends  created DOM components after cardInfo
 
-  //set styles
+
+  //set styles//// sets class names and urls//// you dont add periods in front of the class name
   card.classList.add("card");
   imgs.src = userObject.avatar_url;
   cardInfo.classList.add("card-info");
   name.classList.add("name");
   userName.classList.add("username");
   profileLink.href = userObject.html_url;
-  expandButton.classList.add("expandButton", 'hide-btn')
-  expandButton.classList.toggle("hide-btn");
+
+  /////ATTEMPTED ADDING BUTTON WHERE IT WOULD APPEAR AND TOGGLE BUT DIDNT WORK SO WOO
+  // card.classList.toggle('card-open');
+  expandButton.classList.add("expandButton")
+  expandButton.classList.toggle('toggle-on');
     if(card.classList.length > 1)
     expandButton.innerHTML= 'collapse';
     else expandButton.innerHTML = 'expand';
     
 
   ///set content
-  userName.textContent = `${userObject.login}`;
+  userName.textContent = `${userObject.login}`;///text content to set login variable up for each individual and so on down the list more or less
   name.textContent = `${userObject.name}`;
   location.textContent = `Location: ${userObject.location}`
   profileLink.textContent = userObject.html_url;
@@ -142,11 +144,11 @@ function createCards(userObject) {
   expandButton.textContent = 'expand';
   
   ////event listener
-  expandButton.addEventListener('click', () =>{
-    console.log('clicked me yay!')
+  expandButton.addEventListener('click', () =>{////event listener to see that click worked in the console
+    console.log('clicked me yay!')//// via this phrase
   })
 
-  return card;
+  return card;//// dont forget to return because bad things happen when you dont
 }
 
 /* List of LS Instructors Github username's: 

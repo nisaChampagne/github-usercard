@@ -211,7 +211,12 @@ button.expandButton {
   background-color: white;
   border-radius: 5px;
   cursor: pointer;
+
 }
+
+/* .toggle-on{
+  display: none;
+} */
 
 .card-open{
   height: 400px;
